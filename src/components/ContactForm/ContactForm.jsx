@@ -4,7 +4,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import css from "./ContactForm.module.css";
 import { useId } from "react";
 import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contactsSlice";
+import { addContact } from "../../redux/contactsOps";
 
 const contactSchema = Yup.object().shape({
   name: Yup.string()
@@ -12,7 +12,8 @@ const contactSchema = Yup.object().shape({
     .max(50, "Too long!")
     .required("Required field!"),
   number: Yup.string()
-    .matches(/^\d{3}-\d{2}-\d{2}$/, "Only in this format 123-45-67")
+    .min(3, "The phone number must consist of at least 3 digits!")
+    .max(50, "Too long number")
     .required("Required field!"),
 });
 
